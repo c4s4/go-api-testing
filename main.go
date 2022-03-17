@@ -11,8 +11,12 @@ func Hello(ctx *gin.Context) {
 	ctx.JSON(200, gin.H{"message": fmt.Sprintf("Hello %s!", name)})
 }
 
-func main() {
+func Engine() *gin.Engine {
 	engine := gin.Default()
 	engine.GET("/hello/:name", Hello)
-	engine.Run()
+	return engine
+}
+
+func main() {
+	Engine().Run()
 }

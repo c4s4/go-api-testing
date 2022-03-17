@@ -1,6 +1,6 @@
 # Integration test using Venom with Tavern executor
 
-name: User
+name: Hello
 vars:
   URL: "http://127.0.0.1:8080"
 

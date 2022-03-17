@@ -5,8 +5,6 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
-
-	"github.com/gin-gonic/gin"
 )
 
 type Response struct {
@@ -14,8 +12,7 @@ type Response struct {
 }
 
 func TestHello(t *testing.T) {
-	engine := gin.Default()
-	engine.GET("/hello/:name", Hello)
+	engine := Engine()
 	recorder := httptest.NewRecorder()
 	request, err := http.NewRequest("GET", "/hello/World", nil)
 	if err != nil {
@@ -39,8 +36,7 @@ func TestHello(t *testing.T) {
 }
 
 func TestHelloNotFound(t *testing.T) {
-	engine := gin.Default()
-	engine.GET("/hello/:name", Hello)
+	engine := Engine()
 	recorder := httptest.NewRecorder()
 	request, err := http.NewRequest("GET", "/hello", nil)
 	if err != nil {
