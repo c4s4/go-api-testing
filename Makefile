@@ -35,7 +35,7 @@ integ: clean build # Run integration tests
 		until curl http://127.0.0.1:8080; do \
 			sleep 0.1; \
 		done; \
-		venom run *.yml; \
+		venom run test.yml; \
 		kill $$PID
 
 integ-cover: # Run integration tests with coverage
@@ -46,3 +46,23 @@ integ-cover: # Run integration tests with coverage
 	@go tool cover -html=$(BUILD_DIR)/coverage-integ.out -o $(BUILD_DIR)/coverage-integ.html
 	@echo "Integration tests coverage report in $$(pwd)/$(BUILD_DIR)/coverage-integ.html"
 	@echo "$(GRE)OK$(END) integration tests success"
+
+venom: # Run integration test with HTTP executor
+	@echo "$(YEL)Run API integration tests with HTTP executor$(END)"
+	@build/go-rest-api & \
+		PID=$$!; \
+		until curl http://127.0.0.1:8080; do \
+			sleep 0.1; \
+		done; \
+		venom run venom.yml; \
+		kill $$PID
+
+tavern: # Run integration test with Tavern
+	@echo "$(YEL)Run API integration tests with Tavern$(END)"
+	@build/go-rest-api & \
+		PID=$$!; \
+		until curl http://127.0.0.1:8080; do \
+			sleep 0.1; \
+		done; \
+		tavern-ci test_api.tavern.yaml; \
+		kill $$PID

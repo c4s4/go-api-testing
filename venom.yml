@@ -1,0 +1,25 @@
+# Integration test using Venom with HTTP executor
+
+name: Hello
+vars:
+  URL: "http://127.0.0.1:8080"
+
+testcases:
+
+- name: Test hello
+  steps:
+  - type: http
+    method: GET
+    url: "{{.URL}}/hello/World"
+    assertions:
+    - result.statuscode ShouldEqual 200
+    - result.bodyjson.message ShouldEqual "Hello World!"
+
+- name: Test not found
+  steps:
+  - type: http
+    method: GET
+    url: "{{.URL}}/hello"
+    assertions:
+    - result.statuscode ShouldEqual 404
+    - result.body ShouldEqual "404 page not found"

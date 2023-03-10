@@ -1,0 +1,21 @@
+# Integration test using Tavern
+
+test_name: "Integration test with Tavern"
+
+stages:
+
+- name: "Test hello"
+  request:
+    url: "http://127.0.0.1:8080/hello/World"
+    method: GET
+  response:
+    status_code: 200
+    json:
+      message: "Hello World!"
+
+- name: "Test not found"
+  request:
+    url: "http://127.0.0.1:8080/hello"
+    method: GET
+  response:
+    status_code: 404

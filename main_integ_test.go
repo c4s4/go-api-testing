@@ -25,7 +25,7 @@ func WaitServer() {
 func TestIntegration(t *testing.T) {
 	go Engine().Run()
 	WaitServer()
-	out, err := exec.Command("venom", "run", "*.yml").Output()
+	out, err := exec.Command("venom", "run", "test.yml").Output()
 	if err != nil {
 		t.Fatalf("running venom: %s", string(out))
 	}
